@@ -1,17 +1,17 @@
-import { Welcome } from './components/Welcome';
-import { Counter } from './components/Counter';
-
-const user = {
-  name: 'Caio Lucas',
-  surname: 'Pereira da Silva',
-  image: 'https://github.com/caiulucas.png'
-}
+import React from 'react';
+import { List } from './pages/List';
 
 export function App() {
   return (
     <>
-      <Welcome user={user} />
-      <Counter />
+       <List />
     </>
-  );;
+  );
 }
+
+// const user = {
+  //   name: 'Caio Lucas',
+  //   surname: 'Pereira da Silva',
+  //   image: 'https://github.com/caiulucas.png'
+  // }
+  
