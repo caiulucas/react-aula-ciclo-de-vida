@@ -1,15 +1,46 @@
 import React, { useState } from 'react';
+import './list.css';
 
 export function List() {
   const [list, setList] = useState([]);
-  const [item, setItem] = useState('');
+  const [listCache, setListCache] = useState([]);
 
-  function handleInput(event) {
-    setItem(event.target.value);
+  const [itemText, setItemText] = useState('');
+  
+  function handleInput(event, setState) {
+    setState(event.target.value);
   }
 
   function handleAddItem() {
-    setList([...list, item]);
+    const newList = [...list, itemText];
+    
+    setList(newList);
+    setListCache(newList);
+
+    setItemText('');
+  }
+
+  function handleRemoveItem() {
+    const listFiltered = list.filter((listItem) => {
+      return listItem !== itemText;
+    });
+
+    setList(listFiltered);
+    setListCache(listFiltered);
+    setItemText('');
+  }
+
+  function handleSearchItem() {
+    if(itemText === '') {
+      return setList(listCache);
+    }
+
+    const listFiltered = listCache.filter((listItem) => {
+      return listItem.indexOf(itemText) > -1;
+    });
+
+    setList(listFiltered);
+    setItemText('');
   }
 
   return (
@@ -18,9 +49,13 @@ export function List() {
       <input 
         type="text" 
         placeholder='Insira um item na lista' 
-        onChange={handleInput} 
+        value={itemText}
+        onChange={(event) => handleInput(event, setItemText)} 
       />
+      <br />
       <button onClick={handleAddItem} >Inserir</button>
+      <button onClick={handleRemoveItem}>Remover</button>      
+      <button onClick={handleSearchItem}>Pesquisar</button>
 
       <ul>
         {list.map((product, index) => (
@@ -28,5 +63,5 @@ export function List() {
         ))}
       </ul>
     </div>
-  )
+  );
 }
