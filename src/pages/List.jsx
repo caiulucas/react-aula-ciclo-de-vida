@@ -12,7 +12,17 @@ export function List() {
   }
 
   function handleAddItem() {
-    const newList = [...list, itemText];
+    if(itemText === '') {
+      return;
+    }
+
+    const newItem = {
+      id: listCache.length + 1,
+      checked: false,
+      title: itemText,
+    }
+
+    const newList = [...list, newItem];
     
     setList(newList);
     setListCache(newList);
@@ -22,7 +32,7 @@ export function List() {
 
   function handleRemoveItem() {
     const listFiltered = list.filter((listItem) => {
-      return listItem !== itemText;
+      return listItem.title !== itemText;
     });
 
     setList(listFiltered);
@@ -36,15 +46,28 @@ export function List() {
     }
 
     const listFiltered = listCache.filter((listItem) => {
-      return listItem.indexOf(itemText) > -1;
+      return listItem.title.indexOf(itemText) > -1;
     });
 
     setList(listFiltered);
     setItemText('');
   }
 
+  function handleToggleCheckbox(id) {
+    const updatedList = listCache.map((item) => {
+      if(item.id === id) {
+        item.checked = !item.checked;
+      }
+
+      return item;
+    });
+
+    setList(updatedList);
+    setListCache(updatedList);
+  }
+
   return (
-    <div>
+    <div className="list">
       <h1>Minha lista de coisas</h1>
       <input 
         type="text" 
@@ -53,13 +76,22 @@ export function List() {
         onChange={(event) => handleInput(event, setItemText)} 
       />
       <br />
-      <button onClick={handleAddItem} >Inserir</button>
-      <button onClick={handleRemoveItem}>Remover</button>      
-      <button onClick={handleSearchItem}>Pesquisar</button>
+
+      <div className="button-container">
+        <button onClick={handleAddItem}>Inserir</button>
+        <button onClick={handleRemoveItem}>Remover</button>      
+        <button onClick={handleSearchItem}>Pesquisar</button>
+      </div>
 
       <ul>
         {list.map((product, index) => (
-          <li key={index}>{product}</li>
+          <li key={index} className={product.checked ? 'checked' : ''}>
+            <input 
+              type="checkbox" 
+              checked={product.checked}
+              onChange={() => handleToggleCheckbox(product.id)} />
+            {product.title}
+          </li>
         ))}
       </ul>
     </div>

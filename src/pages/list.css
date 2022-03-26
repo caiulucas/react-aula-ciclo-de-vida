@@ -2,4 +2,90 @@
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  outline: none;
+}
+
+.list {
+  max-width: 300px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.list h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.list input {
+  border: none;
+  background-color: #e4e4e4;
+
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 16px;
+  font-size: 16px;
+}
+
+.list .button-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.list .button-container button {
+  width: 92px;
+  height: 40px;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+
+  background-color: #B22E69;
+  color: #fff;
+
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.list .button-container button:hover {
+  background-color: #e03d86;
+}
+
+.list ul {
+  margin-top: 24px;
+  list-style: none;
+}
+
+.list ul li {
+  background-color: #ededed;
+  height: 40px;
+
+  display: flex;
+  
+  align-items: center;
+  
+  padding: 0 16px;
+}
+
+.list ul li:nth-child(odd) {
+  background-color: #e4e4e4;
+}
+
+.list ul li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.list ul li.checked {
+  color: rgb(92, 92, 92);
+  text-decoration: line-through;
+}
+
+.list ul li.color {
+  color: #e03d86;
 }
